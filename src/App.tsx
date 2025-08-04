@@ -17,9 +17,9 @@ const AppContent: React.FC = () => {
   // Show loading spinner while auth is loading
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <div className="w-12 h-12 mx-auto mb-4 border-b-2 border-green-500 rounded-full animate-spin"></div>
           <p className="text-gray-600">Ładowanie...</p>
         </div>
       </div>
@@ -48,9 +48,9 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="pb-16">{renderContent()}</main>
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <Navbar onTabChange={setActiveTab} />
+      <main className="flex-1 py-16 overflow-auto">{renderContent()}</main>
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
