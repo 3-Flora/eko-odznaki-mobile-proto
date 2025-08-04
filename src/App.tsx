@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import { AuthForm } from "./components/auth/AuthForm";
+import { AuthForm } from "./pages/auth/AuthForm";
 import { Navbar } from "./components/layout/Navbar";
 import { BottomNav } from "./components/layout/BottomNav";
-import { Dashboard } from "./components/dashboard/Dashboard";
-import { SubmitActivity } from "./components/activities/SubmitActivity";
-import { Ranking } from "./components/ranking/Ranking";
-import { Challenges } from "./components/challenges/Challenges";
-import { Profile } from "./components/profile/Profile";
+import { Dashboard } from "./pages/dashboard/Dashboard";
+import { SubmitActivity } from "./pages/activities/SubmitActivity";
+import { Ranking } from "./pages/ranking/Ranking";
+import { Challenges } from "./pages/challenges/Challenges";
+import { Profile } from "./pages/profile/Profile";
 
 const AppContent: React.FC = () => {
   const { currentUser, loading } = useAuth();

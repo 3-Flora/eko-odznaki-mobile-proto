@@ -73,18 +73,18 @@ export const SubmitActivity: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="p-4 pb-20 flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen p-4 pb-20">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           className="text-center"
         >
-          <div className="text-6xl mb-4">🎉</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Wysłano!</h2>
-          <p className="text-gray-600 mb-4">
+          <div className="mb-4 text-6xl">🎉</div>
+          <h2 className="mb-2 text-2xl font-bold text-gray-800">Wysłano!</h2>
+          <p className="mb-4 text-gray-600">
             Twoje działanie zostało przesłane do weryfikacji przez nauczyciela
           </p>
-          <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full inline-block">
+          <div className="inline-block px-4 py-2 text-green-800 bg-green-100 rounded-full">
             <CheckCircle className="inline w-4 h-4 mr-1" />
             Oczekuje na zatwierdzenie
           </div>
@@ -104,8 +104,8 @@ export const SubmitActivity: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="text-center"
       >
-        <div className="text-4xl mb-4">🌍</div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
+        <div className="mb-4 text-4xl">🌍</div>
+        <h1 className="mb-2 text-2xl font-bold text-gray-800">
           Dodaj działanie
         </h1>
         <p className="text-gray-600">Podziel się swoimi eko-działaniami!</p>
@@ -115,7 +115,7 @@ export const SubmitActivity: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl"
+          className="px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded-xl"
         >
           {error}
         </motion.div>
@@ -127,9 +127,9 @@ export const SubmitActivity: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-2xl p-6 shadow-lg"
+          className="p-6 bg-white shadow-lg rounded-2xl"
         >
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="mb-4 text-lg font-semibold text-gray-800">
             Wybierz kategorię
           </h3>
           <div className="grid grid-cols-2 gap-3">
@@ -146,7 +146,7 @@ export const SubmitActivity: React.FC = () => {
                     : "border-gray-200 hover:border-green-300"
                 }`}
               >
-                <div className="text-2xl mb-2">{category.icon}</div>
+                <div className="mb-2 text-2xl">{category.icon}</div>
                 <p className="text-sm font-medium text-gray-800">
                   {category.name}
                 </p>
@@ -163,10 +163,10 @@ export const SubmitActivity: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white rounded-2xl p-6 shadow-lg"
+              className="p-6 bg-white shadow-lg rounded-2xl"
             >
               <div className="flex items-center mb-4">
-                <div className="text-2xl mr-3">
+                <div className="mr-3 text-2xl">
                   {selectedCategoryData?.icon}
                 </div>
                 <div>
@@ -181,7 +181,7 @@ export const SubmitActivity: React.FC = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
                     Tytuł działania
                   </label>
                   <input
@@ -195,7 +195,7 @@ export const SubmitActivity: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
                     Opis działania
                   </label>
                   <textarea
@@ -203,7 +203,7 @@ export const SubmitActivity: React.FC = () => {
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Opisz szczegóły swojego eko-działania..."
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 resize-none rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     required
                   />
                 </div>
@@ -215,17 +215,17 @@ export const SubmitActivity: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white rounded-2xl p-6 shadow-lg"
+              className="p-6 bg-white shadow-lg rounded-2xl"
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="mb-4 text-lg font-semibold text-gray-800">
                 Dodaj zdjęcie (opcjonalne)
               </h3>
 
               {!photoPreview ? (
                 <label className="block cursor-pointer">
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-green-400 transition">
-                    <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 mb-2">
+                  <div className="p-8 text-center transition border-2 border-gray-300 border-dashed rounded-xl hover:border-green-400">
+                    <Camera className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                    <p className="mb-2 text-gray-600">
                       Kliknij, aby dodać zdjęcie
                     </p>
                     <p className="text-sm text-gray-400">PNG, JPG do 5MB</p>
@@ -242,7 +242,7 @@ export const SubmitActivity: React.FC = () => {
                   <img
                     src={photoPreview}
                     alt="Preview"
-                    className="w-full h-48 object-cover rounded-xl"
+                    className="object-cover w-full h-48 rounded-xl"
                   />
                   <button
                     type="button"
@@ -250,7 +250,7 @@ export const SubmitActivity: React.FC = () => {
                       setPhoto(null);
                       setPhotoPreview(null);
                     }}
-                    className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
+                    className="absolute p-2 text-white transition bg-red-500 rounded-full top-2 right-2 hover:bg-red-600"
                   >
                     ✕
                   </button>
@@ -265,10 +265,10 @@ export const SubmitActivity: React.FC = () => {
               transition={{ delay: 0.4 }}
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex items-center justify-center w-full gap-2 py-4 text-lg font-semibold text-white transition duration-200 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl hover:from-green-600 hover:to-emerald-700 disabled:opacity-50"
             >
               {loading ? (
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                <div className="w-6 h-6 border-b-2 border-white rounded-full animate-spin"></div>
               ) : (
                 <>
                   <Upload className="w-5 h-5" />

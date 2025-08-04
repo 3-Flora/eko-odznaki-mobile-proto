@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   Trophy,
   Star,
@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { availableBadges } from "../../data/badges";
-import { ConfirmModal } from "../modal/ConfirmModal";
+import { ConfirmModal } from "../../components/modal/ConfirmModal";
 
 export const Profile: React.FC = () => {
   const { currentUser, logout, deleteAccount } = useAuth();
