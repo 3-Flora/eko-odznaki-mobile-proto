@@ -4,7 +4,7 @@ export interface User {
   displayName: string;
   school: string;
   className: string;
-  role: 'student' | 'teacher';
+  role: "student" | "teacher";
   points: number;
   badges: Badge[];
   photoURL?: string;
@@ -30,20 +30,20 @@ export interface Activity {
   description: string;
   photoURL?: string;
   points: number;
-  status: 'pending' | 'approved' | 'rejected';
+  status: "pending" | "approved" | "rejected";
   submittedAt: Date;
   reviewedAt?: Date;
   reviewedBy?: string;
 }
 
-export type ActivityCategory = 
-  | 'transport' 
-  | 'recycling' 
-  | 'energy' 
-  | 'water' 
-  | 'cleanup' 
-  | 'nature' 
-  | 'education';
+export type ActivityCategory =
+  | "transport"
+  | "recycling"
+  | "energy"
+  | "water"
+  | "cleanup"
+  | "nature"
+  | "education";
 
 export interface Challenge {
   id: string;

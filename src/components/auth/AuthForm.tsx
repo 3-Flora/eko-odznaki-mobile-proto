@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { Mail, Lock, User, School, Users, Chrome } from 'lucide-react';
+import React, { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { Mail, Lock, User, School, Users, Chrome } from "lucide-react";
 
 interface AuthFormProps {
   isLogin: boolean;
@@ -8,27 +8,32 @@ interface AuthFormProps {
 }
 
 export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [school, setSchool] = useState('');
-  const [className, setClassName] = useState('');
-  const [role, setRole] = useState<'student' | 'teacher'>('student');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [school, setSchool] = useState("");
+  const [className, setClassName] = useState("");
+  const [role, setRole] = useState<"student" | "teacher">("student");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const { login, register, loginWithGoogle } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       if (isLogin) {
         await login(email, password);
       } else {
-        await register(email, password, { displayName, school, className, role });
+        await register(email, password, {
+          displayName,
+          school,
+          className,
+          role,
+        });
       }
     } catch (err: any) {
       setError(err.message);
@@ -39,7 +44,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
 
   const handleGoogleLogin = async () => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       await loginWithGoogle();
@@ -57,7 +62,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
           <div className="text-6xl mb-4">🌱</div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">EKO-odznaki</h1>
           <p className="text-gray-600">
-            {isLogin ? 'Zaloguj się do swojego konta' : 'Stwórz nowe konto'}
+            {isLogin ? "Zaloguj się do swojego konta" : "Stwórz nowe konto"}
           </p>
         </div>
 
@@ -136,8 +141,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
                     type="radio"
                     name="role"
                     value="student"
-                    checked={role === 'student'}
-                    onChange={(e) => setRole(e.target.value as 'student')}
+                    checked={role === "student"}
+                    onChange={(e) => setRole(e.target.value as "student")}
                     className="mr-2"
                   />
                   <span className="text-sm">Uczeń</span>
@@ -147,8 +152,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
                     type="radio"
                     name="role"
                     value="teacher"
-                    checked={role === 'teacher'}
-                    onChange={(e) => setRole(e.target.value as 'teacher')}
+                    checked={role === "teacher"}
+                    onChange={(e) => setRole(e.target.value as "teacher")}
                     className="mr-2"
                   />
                   <span className="text-sm">Nauczyciel</span>
@@ -162,7 +167,11 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
             disabled={loading}
             className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transition duration-200 disabled:opacity-50"
           >
-            {loading ? 'Ładowanie...' : (isLogin ? 'Zaloguj się' : 'Zarejestruj się')}
+            {loading
+              ? "Ładowanie..."
+              : isLogin
+                ? "Zaloguj się"
+                : "Zarejestruj się"}
           </button>
         </form>
 
@@ -191,7 +200,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
             onClick={onToggle}
             className="text-green-600 hover:text-green-700 font-medium"
           >
-            {isLogin ? 'Nie masz konta? Zarejestruj się' : 'Masz już konto? Zaloguj się'}
+            {isLogin
+              ? "Nie masz konta? Zarejestruj się"
+              : "Masz już konto? Zaloguj się"}
           </button>
         </div>
       </div>

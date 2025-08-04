@@ -1,6 +1,6 @@
-import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { LogOut, User, Trophy, Target } from 'lucide-react';
+import React from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { LogOut, User, Trophy, Target } from "lucide-react";
 
 export const Navbar: React.FC = () => {
   const { currentUser, logout } = useAuth();
@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
     try {
       await logout();
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 

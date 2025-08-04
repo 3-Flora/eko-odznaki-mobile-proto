@@ -23,7 +23,7 @@ interface ActivityContextType {
   rejectActivity: (activityId: string, reason?: string) => Promise<void>;
   getRecentActivities: (
     schoolName?: string,
-    className?: string
+    className?: string,
   ) => Promise<Activity[]>;
 }
 
@@ -65,14 +65,14 @@ export const ActivityProvider: React.FC<{ children: React.ReactNode }> = ({
         activitiesQuery = query(
           collection(db, "activities"),
           where("status", "==", "pending"),
-          orderBy("submittedAt", "desc")
+          orderBy("submittedAt", "desc"),
         );
       } else {
         // Student sees their own activities
         activitiesQuery = query(
           collection(db, "activities"),
           where("userId", "==", currentUser.id),
-          orderBy("submittedAt", "desc")
+          orderBy("submittedAt", "desc"),
         );
       }
 
@@ -94,10 +94,10 @@ export const ActivityProvider: React.FC<{ children: React.ReactNode }> = ({
           } else {
             // For students, separate by status
             setPendingActivities(
-              activities.filter((a) => a.status === "pending")
+              activities.filter((a) => a.status === "pending"),
             );
             setApprovedActivities(
-              activities.filter((a) => a.status === "approved")
+              activities.filter((a) => a.status === "approved"),
             );
           }
 
@@ -106,7 +106,7 @@ export const ActivityProvider: React.FC<{ children: React.ReactNode }> = ({
         (error) => {
           console.error("Error loading activities:", error);
           setLoading(false);
-        }
+        },
       );
     } catch (error) {
       console.error("Error setting up activities listener:", error);
@@ -161,7 +161,7 @@ export const ActivityProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getRecentActivities = async (
     schoolName?: string,
-    className?: string
+    className?: string,
   ): Promise<Activity[]> => {
     let activitiesQuery;
 
@@ -170,7 +170,7 @@ export const ActivityProvider: React.FC<{ children: React.ReactNode }> = ({
       const usersQuery = query(
         collection(db, "users"),
         where("school", "==", schoolName),
-        where("className", "==", className)
+        where("className", "==", className),
       );
       const usersSnapshot = await getDocs(usersQuery);
       const userIds = usersSnapshot.docs.map((doc) => doc.id);
@@ -182,7 +182,7 @@ export const ActivityProvider: React.FC<{ children: React.ReactNode }> = ({
         where("userId", "in", userIds),
         where("status", "==", "approved"),
         orderBy("reviewedAt", "desc"),
-        limit(10)
+        limit(10),
       );
     } else {
       // Get all recent approved activities
@@ -190,7 +190,7 @@ export const ActivityProvider: React.FC<{ children: React.ReactNode }> = ({
         collection(db, "activities"),
         where("status", "==", "approved"),
         orderBy("reviewedAt", "desc"),
-        limit(10)
+        limit(10),
       );
     }
 

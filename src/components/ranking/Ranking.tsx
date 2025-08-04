@@ -11,7 +11,7 @@ interface RankingUser extends User {
 
 export const Ranking: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"individual" | "class" | "school">(
-    "individual"
+    "individual",
   );
   const [individualRanking, setIndividualRanking] = useState<RankingUser[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ export const Ranking: React.FC = () => {
           const usersQuery = query(
             collection(db, "users"),
             orderBy("points", "desc"),
-            limit(50)
+            limit(50),
           );
 
           const snapshot = await getDocs(usersQuery);

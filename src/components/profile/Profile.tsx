@@ -1,20 +1,35 @@
-import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { Trophy, Star, Calendar, School, Users } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { availableBadges } from '../../data/badges';
+import React from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { Trophy, Star, Calendar, School, Users } from "lucide-react";
+import { motion } from "framer-motion";
+import { availableBadges } from "../../data/badges";
 
 export const Profile: React.FC = () => {
   const { currentUser } = useAuth();
 
-  const earnedBadges = availableBadges.filter(badge => 
-    (currentUser?.points || 0) >= badge.pointsRequired
+  const earnedBadges = availableBadges.filter(
+    (badge) => (currentUser?.points || 0) >= badge.pointsRequired,
   );
 
   const stats = [
-    { label: 'Punkty', value: currentUser?.points || 0, icon: Trophy, color: 'text-yellow-600' },
-    { label: 'Odznaki', value: earnedBadges.length, icon: Star, color: 'text-purple-600' },
-    { label: 'Dni aktywności', value: 15, icon: Calendar, color: 'text-blue-600' },
+    {
+      label: "Punkty",
+      value: currentUser?.points || 0,
+      icon: Trophy,
+      color: "text-yellow-600",
+    },
+    {
+      label: "Odznaki",
+      value: earnedBadges.length,
+      icon: Star,
+      color: "text-purple-600",
+    },
+    {
+      label: "Dni aktywności",
+      value: 15,
+      icon: Calendar,
+      color: "text-blue-600",
+    },
   ];
 
   return (
@@ -35,7 +50,7 @@ export const Profile: React.FC = () => {
           ) : (
             <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center border-4 border-white">
               <span className="text-3xl font-bold">
-                {currentUser?.displayName?.charAt(0) || 'U'}
+                {currentUser?.displayName?.charAt(0) || "U"}
               </span>
             </div>
           )}
@@ -43,10 +58,12 @@ export const Profile: React.FC = () => {
             <Trophy className="w-6 h-6 text-yellow-800" />
           </div>
         </div>
-        
+
         <h1 className="text-2xl font-bold mb-1">{currentUser?.displayName}</h1>
-        <p className="text-green-100 mb-2">{currentUser?.role === 'teacher' ? 'Nauczyciel' : 'Uczeń'}</p>
-        
+        <p className="text-green-100 mb-2">
+          {currentUser?.role === "teacher" ? "Nauczyciel" : "Uczeń"}
+        </p>
+
         <div className="flex items-center justify-center space-x-4 mt-4">
           <div className="flex items-center">
             <School className="w-4 h-4 mr-1" />
@@ -86,7 +103,7 @@ export const Profile: React.FC = () => {
         className="bg-white rounded-2xl p-6 shadow-lg"
       >
         <h2 className="text-xl font-bold text-gray-800 mb-4">Twoje odznaki</h2>
-        
+
         {earnedBadges.length === 0 ? (
           <div className="text-center py-8">
             <div className="text-4xl mb-4">🏆</div>
@@ -121,11 +138,15 @@ export const Profile: React.FC = () => {
         transition={{ delay: 0.6 }}
         className="bg-white rounded-2xl p-6 shadow-lg"
       >
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Odznaki do zdobycia</h2>
-        
+        <h2 className="text-xl font-bold text-gray-800 mb-4">
+          Odznaki do zdobycia
+        </h2>
+
         <div className="space-y-3">
           {availableBadges
-            .filter(badge => (currentUser?.points || 0) < badge.pointsRequired)
+            .filter(
+              (badge) => (currentUser?.points || 0) < badge.pointsRequired,
+            )
             .map((badge, index) => (
               <motion.div
                 key={badge.id}
@@ -140,13 +161,23 @@ export const Profile: React.FC = () => {
                   <p className="text-sm text-gray-600">{badge.description}</p>
                   <div className="mt-2">
                     <div className="flex justify-between text-xs text-gray-500 mb-1">
-                      <span>{currentUser?.points || 0} / {badge.pointsRequired} pkt</span>
-                      <span>{Math.round(((currentUser?.points || 0) / badge.pointsRequired) * 100)}%</span>
+                      <span>
+                        {currentUser?.points || 0} / {badge.pointsRequired} pkt
+                      </span>
+                      <span>
+                        {Math.round(
+                          ((currentUser?.points || 0) / badge.pointsRequired) *
+                            100,
+                        )}
+                        %
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
+                      <div
                         className="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${Math.min(((currentUser?.points || 0) / badge.pointsRequired) * 100, 100)}%` }}
+                        style={{
+                          width: `${Math.min(((currentUser?.points || 0) / badge.pointsRequired) * 100, 100)}%`,
+                        }}
                       ></div>
                     </div>
                   </div>

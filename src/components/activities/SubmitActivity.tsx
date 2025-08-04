@@ -94,7 +94,7 @@ export const SubmitActivity: React.FC = () => {
   }
 
   const selectedCategoryData = activityCategories.find(
-    (cat) => cat.id === selectedCategory
+    (cat) => cat.id === selectedCategory,
   );
 
   return (

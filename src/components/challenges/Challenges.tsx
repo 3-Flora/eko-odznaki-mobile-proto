@@ -1,16 +1,17 @@
-import React from 'react';
-import { Calendar, Clock, Users, Gift } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { Calendar, Clock, Users, Gift } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const Challenges: React.FC = () => {
   const currentChallenge = {
     id: 1,
-    title: 'Tydzień bez plastiku',
-    description: 'Unikaj jednorazowych przedmiotów plastikowych przez cały tydzień',
-    icon: '🚫🥤',
+    title: "Tydzień bez plastiku",
+    description:
+      "Unikaj jednorazowych przedmiotów plastikowych przez cały tydzień",
+    icon: "🚫🥤",
     bonusPoints: 50,
-    startDate: new Date('2024-01-15'),
-    endDate: new Date('2024-01-21'),
+    startDate: new Date("2024-01-15"),
+    endDate: new Date("2024-01-21"),
     participants: 234,
     daysLeft: 3,
     progress: 60,
@@ -19,48 +20,48 @@ export const Challenges: React.FC = () => {
   const upcomingChallenges = [
     {
       id: 2,
-      title: 'Eko-transport',
-      description: 'Przez tydzień używaj tylko transportu ekologicznego',
-      icon: '🚴‍♀️',
+      title: "Eko-transport",
+      description: "Przez tydzień używaj tylko transportu ekologicznego",
+      icon: "🚴‍♀️",
       bonusPoints: 40,
-      startDate: new Date('2024-01-22'),
-      endDate: new Date('2024-01-28'),
+      startDate: new Date("2024-01-22"),
+      endDate: new Date("2024-01-28"),
     },
     {
       id: 3,
-      title: 'Oszczędzanie energii',
-      description: 'Zmniejsz zużycie energii w domu o 20%',
-      icon: '💡',
+      title: "Oszczędzanie energii",
+      description: "Zmniejsz zużycie energii w domu o 20%",
+      icon: "💡",
       bonusPoints: 35,
-      startDate: new Date('2024-01-29'),
-      endDate: new Date('2024-02-04'),
+      startDate: new Date("2024-01-29"),
+      endDate: new Date("2024-02-04"),
     },
     {
       id: 4,
-      title: 'Zero waste lunch',
-      description: 'Przynoś do szkoły lunch bez opakowań jednorazowych',
-      icon: '🥪',
+      title: "Zero waste lunch",
+      description: "Przynoś do szkoły lunch bez opakowań jednorazowych",
+      icon: "🥪",
       bonusPoints: 30,
-      startDate: new Date('2024-02-05'),
-      endDate: new Date('2024-02-11'),
+      startDate: new Date("2024-02-05"),
+      endDate: new Date("2024-02-11"),
     },
   ];
 
   const completedChallenges = [
     {
       id: 5,
-      title: 'Segregacja mistrzów',
-      description: 'Prawidłowo segreguj śmieci przez 2 tygodnie',
-      icon: '♻️',
+      title: "Segregacja mistrzów",
+      description: "Prawidłowo segreguj śmieci przez 2 tygodnie",
+      icon: "♻️",
       bonusPoints: 45,
       completed: true,
       earnedPoints: 45,
     },
     {
       id: 6,
-      title: 'Wodne oszczędności',
-      description: 'Zmniejsz zużycie wody w domu',
-      icon: '💧',
+      title: "Wodne oszczędności",
+      description: "Zmniejsz zużycie wody w domu",
+      icon: "💧",
       bonusPoints: 25,
       completed: true,
       earnedPoints: 25,
@@ -77,7 +78,9 @@ export const Challenges: React.FC = () => {
       >
         <div className="text-4xl mb-4">🎯</div>
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Wyzwania</h1>
-        <p className="text-gray-600">Dołącz do wyzwań i zdobywaj bonusowe punkty!</p>
+        <p className="text-gray-600">
+          Dołącz do wyzwań i zdobywaj bonusowe punkty!
+        </p>
       </motion.div>
 
       {/* Current Challenge */}
@@ -98,7 +101,9 @@ export const Challenges: React.FC = () => {
           <div className="text-center">
             <div className="bg-white/20 rounded-xl px-3 py-2">
               <p className="text-sm font-medium">Bonus</p>
-              <p className="text-lg font-bold">+{currentChallenge.bonusPoints}</p>
+              <p className="text-lg font-bold">
+                +{currentChallenge.bonusPoints}
+              </p>
             </div>
           </div>
         </div>
@@ -111,7 +116,7 @@ export const Challenges: React.FC = () => {
             <span>Pozostało {currentChallenge.daysLeft} dni</span>
           </div>
           <div className="w-full bg-white/20 rounded-full h-3">
-            <div 
+            <div
               className="bg-white h-3 rounded-full transition-all duration-500"
               style={{ width: `${currentChallenge.progress}%` }}
             ></div>
@@ -136,7 +141,9 @@ export const Challenges: React.FC = () => {
         transition={{ delay: 0.2 }}
         className="bg-white rounded-2xl p-6 shadow-lg"
       >
-        <h3 className="text-lg font-bold text-gray-800 mb-4">Nadchodzące wyzwania</h3>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">
+          Nadchodzące wyzwania
+        </h3>
         <div className="space-y-4">
           {upcomingChallenges.map((challenge, index) => (
             <motion.div
@@ -148,11 +155,18 @@ export const Challenges: React.FC = () => {
             >
               <div className="text-2xl mr-4">{challenge.icon}</div>
               <div className="flex-1">
-                <h4 className="font-semibold text-gray-800">{challenge.title}</h4>
-                <p className="text-sm text-gray-600 mb-2">{challenge.description}</p>
+                <h4 className="font-semibold text-gray-800">
+                  {challenge.title}
+                </h4>
+                <p className="text-sm text-gray-600 mb-2">
+                  {challenge.description}
+                </p>
                 <div className="flex items-center text-xs text-gray-500">
                   <Calendar className="w-3 h-3 mr-1" />
-                  <span>{challenge.startDate.toLocaleDateString('pl-PL')} - {challenge.endDate.toLocaleDateString('pl-PL')}</span>
+                  <span>
+                    {challenge.startDate.toLocaleDateString("pl-PL")} -{" "}
+                    {challenge.endDate.toLocaleDateString("pl-PL")}
+                  </span>
                 </div>
               </div>
               <div className="text-center">
@@ -173,7 +187,9 @@ export const Challenges: React.FC = () => {
         transition={{ delay: 0.4 }}
         className="bg-white rounded-2xl p-6 shadow-lg"
       >
-        <h3 className="text-lg font-bold text-gray-800 mb-4">Ukończone wyzwania</h3>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">
+          Ukończone wyzwania
+        </h3>
         <div className="space-y-4">
           {completedChallenges.map((challenge, index) => (
             <motion.div
@@ -185,7 +201,9 @@ export const Challenges: React.FC = () => {
             >
               <div className="text-2xl mr-4">{challenge.icon}</div>
               <div className="flex-1">
-                <h4 className="font-semibold text-gray-800">{challenge.title}</h4>
+                <h4 className="font-semibold text-gray-800">
+                  {challenge.title}
+                </h4>
                 <p className="text-sm text-gray-600">{challenge.description}</p>
               </div>
               <div className="text-center">
@@ -208,8 +226,9 @@ export const Challenges: React.FC = () => {
       >
         <h3 className="text-lg font-bold mb-2">💡 Wskazówka</h3>
         <p className="text-green-100">
-          Uczestnicząc w wyzwaniach możesz zdobyć znacznie więcej punktów! 
-          Pamiętaj, że każde wyzwanie ma określony czas trwania i bonusowe punkty.
+          Uczestnicząc w wyzwaniach możesz zdobyć znacznie więcej punktów!
+          Pamiętaj, że każde wyzwanie ma określony czas trwania i bonusowe
+          punkty.
         </p>
       </motion.div>
     </div>

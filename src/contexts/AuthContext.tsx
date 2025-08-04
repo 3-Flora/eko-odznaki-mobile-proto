@@ -32,7 +32,7 @@ interface AuthContextType {
   register: (
     email: string,
     password: string,
-    userData: Partial<User>
+    userData: Partial<User>,
   ) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const createUserDocument = async (
     firebaseUser: FirebaseUser,
-    additionalData?: Partial<User>
+    additionalData?: Partial<User>,
   ): Promise<User> => {
     const userRef = doc(db, "users", firebaseUser.uid);
     const userSnap = await getDoc(userRef);
@@ -193,7 +193,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const activitiesQuery = query(
       collection(db, "activities"),
       where("userId", "==", currentUser.id),
-      orderBy("submittedAt", "desc")
+      orderBy("submittedAt", "desc"),
     );
 
     const querySnapshot = await getDocs(activitiesQuery);
@@ -232,12 +232,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const register = async (
     email: string,
     password: string,
-    userData: Partial<User>
+    userData: Partial<User>,
   ) => {
     const { user } = await createUserWithEmailAndPassword(
       auth,
       email,
-      password
+      password,
     );
     await createUserDocument(user, userData);
   };
@@ -271,7 +271,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             },
             (error) => {
               console.error("Error listening to user data:", error);
-            }
+            },
           );
         } else {
           setCurrentUser(null);
