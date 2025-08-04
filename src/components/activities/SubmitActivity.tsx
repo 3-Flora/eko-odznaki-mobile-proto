@@ -94,11 +94,11 @@ export const SubmitActivity: React.FC = () => {
   }
 
   const selectedCategoryData = activityCategories.find(
-    (cat) => cat.id === selectedCategory,
+    (cat) => cat.id === selectedCategory
   );
 
   return (
-    <div className="p-4 pb-20 space-y-6">
+    <div className="flex flex-col gap-6 p-4 pb-20 justify-normal">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

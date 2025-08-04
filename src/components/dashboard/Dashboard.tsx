@@ -36,11 +36,11 @@ export const Dashboard: React.FC = () => {
   const currentStreak = 5; // TODO: Calculate from user data
   const weeklyProgress = Math.min(
     ((currentUser?.points || 0) / 100) * 100,
-    100,
+    100
   ); // Weekly goal of 100 points
 
   return (
-    <div className="p-4 pb-20 space-y-6">
+    <div className="flex flex-col gap-6 p-4 pb-20 justify-normal">
       {/* Welcome Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -92,7 +92,7 @@ export const Dashboard: React.FC = () => {
               style={{
                 width: `${Math.min(
                   ((currentUser?.points || 0) / nextBadgePoints) * 100,
-                  100,
+                  100
                 )}%`,
               }}
             ></div>
@@ -182,10 +182,10 @@ export const Dashboard: React.FC = () => {
                   <p className="text-xs text-gray-400">
                     {activity.reviewedAt
                       ? new Date(activity.reviewedAt).toLocaleDateString(
-                          "pl-PL",
+                          "pl-PL"
                         )
                       : new Date(activity.submittedAt).toLocaleDateString(
-                          "pl-PL",
+                          "pl-PL"
                         )}
                   </p>
                 </div>

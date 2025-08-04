@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { Trophy, Star, Calendar, School, Users } from "lucide-react";
+import {
+  Trophy,
+  Star,
+  Calendar,
+  School,
+  Users,
+  Trash2,
+  LogOut,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { availableBadges } from "../../data/badges";
+import { ConfirmModal } from "../modal/ConfirmModal";
 
 export const Profile: React.FC = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, deleteAccount } = useAuth();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -13,6 +23,11 @@ export const Profile: React.FC = () => {
     } catch (error) {
       console.error("Error logging out:", error);
     }
+  };
+
+  const handleDeleteAccount = async () => {
+    setShowDeleteModal(false);
+    deleteAccount();
   };
 
   const earnedBadges = availableBadges.filter(
@@ -41,7 +56,7 @@ export const Profile: React.FC = () => {
   ];
 
   return (
-    <div className="p-4 pb-20 space-y-6">
+    <div className="flex flex-col gap-6 p-4 pb-20 justify-normal">
       {/* Profile Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -208,8 +223,36 @@ export const Profile: React.FC = () => {
         className="flex items-center p-4 transition-colors shadow-md cursor-pointer bg-gray-50 rounded-xl hover:bg-gray-100"
         onClick={handleLogout}
       >
-        <span className="text-sm font-semibold">Wyloguj</span>
+        <span className="flex items-center gap-2 text-sm font-semibold">
+          <LogOut size={18} />
+          Wyloguj
+        </span>
       </motion.div>
+
+      {/* Delete Account Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.9 }}
+        className="flex items-center p-4 transition-colors shadow-md cursor-pointer bg-red-50 rounded-xl hover:bg-red-100"
+        onClick={() => {
+          setShowDeleteModal(true);
+        }}
+      >
+        <span className="flex items-center gap-2 text-sm font-semibold text-red-600">
+          <Trash2 size={18} /> Usuń konto
+        </span>
+      </motion.div>
+
+      <ConfirmModal
+        open={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleDeleteAccount}
+        title="Potwierdź usunięcie"
+        description="Czy na pewno chcesz usunąć swoje konto? Tej operacji nie można cofnąć."
+        confirmLabel="Usuń konto"
+        confirmClassName="bg-red-600 hover:bg-red-700 text-white"
+      />
     </div>
   );
 };

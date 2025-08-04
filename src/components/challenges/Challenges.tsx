@@ -69,7 +69,7 @@ export const Challenges: React.FC = () => {
   ];
 
   return (
-    <div className="p-4 pb-20 space-y-6">
+    <div className="flex flex-col gap-6 p-4 pb-20 justify-normal">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

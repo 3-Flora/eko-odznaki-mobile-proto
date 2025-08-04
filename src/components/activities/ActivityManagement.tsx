@@ -58,7 +58,7 @@ export const ActivityManagement: React.FC = () => {
   }
 
   return (
-    <div className="p-4 pb-20 space-y-6">
+    <div className="flex flex-col gap-6 p-4 pb-20 justify-normal">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export const ActivityManagement: React.FC = () => {
             <p className="text-2xl font-bold text-gray-800">
               {pendingActivities.reduce(
                 (sum, activity) => sum + activity.points,
-                0,
+                0
               )}
             </p>
             <p className="text-sm text-gray-600">Punkty do przyznania</p>
@@ -156,7 +156,7 @@ export const ActivityManagement: React.FC = () => {
                           <Calendar className="w-3 h-3 mr-1" />
                           <span>
                             {new Date(activity.submittedAt).toLocaleDateString(
-                              "pl-PL",
+                              "pl-PL"
                             )}
                           </span>
                         </div>

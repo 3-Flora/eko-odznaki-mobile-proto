@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  deleteUser,
 } from "firebase/auth";
 import {
   doc,
@@ -20,6 +21,7 @@ import {
   orderBy,
   getDocs,
   serverTimestamp,
+  deleteDoc,
 } from "firebase/firestore";
 import { auth, db, googleProvider } from "../config/firebase";
 import { User, Badge, Activity, ActivityCategory } from "../types";
@@ -32,7 +34,7 @@ interface AuthContextType {
   register: (
     email: string,
     password: string,
-    userData: Partial<User>,
+    userData: Partial<User>
   ) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
@@ -46,10 +48,12 @@ interface AuthContextType {
     photoURL?: string;
   }) => Promise<void>;
   getUserActivities: () => Promise<Activity[]>;
+  deleteAccount: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -66,7 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const createUserDocument = async (
     firebaseUser: FirebaseUser,
-    additionalData?: Partial<User>,
+    additionalData?: Partial<User>
   ): Promise<User> => {
     const userRef = doc(db, "users", firebaseUser.uid);
     const userSnap = await getDoc(userRef);
@@ -193,7 +197,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const activitiesQuery = query(
       collection(db, "activities"),
       where("userId", "==", currentUser.id),
-      orderBy("submittedAt", "desc"),
+      orderBy("submittedAt", "desc")
     );
 
     const querySnapshot = await getDocs(activitiesQuery);
@@ -232,12 +236,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const register = async (
     email: string,
     password: string,
-    userData: Partial<User>,
+    userData: Partial<User>
   ) => {
     const { user } = await createUserWithEmailAndPassword(
       auth,
       email,
-      password,
+      password
     );
     await createUserDocument(user, userData);
   };
@@ -249,6 +253,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     await signOut(auth);
+  };
+
+  const deleteAccount = async () => {
+    if (!currentUser) return;
+    try {
+      if (auth.currentUser) {
+        await deleteUser(auth.currentUser);
+      }
+      const userRef = doc(db, "users", currentUser.id);
+      await deleteDoc(userRef);
+
+      await logout();
+      console.log("Pomyślnie usunięto konto");
+    } catch (error: unknown) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        (error as { code?: string }).code === "auth/requires-recent-login"
+      ) {
+        console.error("Aby usunąć konto, zaloguj się ponownie.");
+      } else {
+        console.error("Wystąpił błąd podczas usuwania konta");
+      }
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -271,7 +301,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             },
             (error) => {
               console.error("Error listening to user data:", error);
-            },
+            }
           );
         } else {
           setCurrentUser(null);
@@ -303,6 +333,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     refreshUserData,
     submitActivity,
     getUserActivities,
+    deleteAccount,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

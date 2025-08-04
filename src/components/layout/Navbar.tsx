@@ -10,7 +10,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onTabChange }) => {
   const { currentUser } = useAuth();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-green-400 shadow-lg">
+    <nav className="fixed top-0 left-0 right-0 z-10 bg-white border-b-4 border-green-400 shadow-lg">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div
