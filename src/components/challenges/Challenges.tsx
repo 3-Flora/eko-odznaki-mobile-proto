@@ -1,5 +1,5 @@
 import React from "react";
-import { Calendar, Clock, Users, Gift } from "lucide-react";
+import { Calendar, Users, Gift } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const Challenges: React.FC = () => {
@@ -76,8 +76,8 @@ export const Challenges: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="text-center"
       >
-        <div className="text-4xl mb-4">🎯</div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Wyzwania</h1>
+        <div className="mb-4 text-4xl">🎯</div>
+        <h1 className="mb-2 text-2xl font-bold text-gray-800">Wyzwania</h1>
         <p className="text-gray-600">
           Dołącz do wyzwań i zdobywaj bonusowe punkty!
         </p>
@@ -88,18 +88,18 @@ export const Challenges: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl p-6 text-white"
+        className="p-6 text-white bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl"
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <div className="text-3xl mr-3">{currentChallenge.icon}</div>
+            <div className="mr-3 text-3xl">{currentChallenge.icon}</div>
             <div>
               <h2 className="text-xl font-bold">{currentChallenge.title}</h2>
-              <p className="text-blue-100 text-sm">Aktualne wyzwanie</p>
+              <p className="text-sm text-blue-100">Aktualne wyzwanie</p>
             </div>
           </div>
           <div className="text-center">
-            <div className="bg-white/20 rounded-xl px-3 py-2">
+            <div className="px-3 py-2 bg-white/20 rounded-xl">
               <p className="text-sm font-medium">Bonus</p>
               <p className="text-lg font-bold">
                 +{currentChallenge.bonusPoints}
@@ -108,16 +108,16 @@ export const Challenges: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-blue-100 mb-4">{currentChallenge.description}</p>
+        <p className="mb-4 text-blue-100">{currentChallenge.description}</p>
 
         <div className="mb-4">
-          <div className="flex justify-between text-sm mb-2">
+          <div className="flex justify-between mb-2 text-sm">
             <span>Postęp: {currentChallenge.progress}%</span>
             <span>Pozostało {currentChallenge.daysLeft} dni</span>
           </div>
-          <div className="w-full bg-white/20 rounded-full h-3">
+          <div className="w-full h-3 rounded-full bg-white/20">
             <div
-              className="bg-white h-3 rounded-full transition-all duration-500"
+              className="h-3 transition-all duration-500 bg-white rounded-full"
               style={{ width: `${currentChallenge.progress}%` }}
             ></div>
           </div>
@@ -128,7 +128,7 @@ export const Challenges: React.FC = () => {
             <Users className="w-4 h-4 mr-1" />
             <span>{currentChallenge.participants} uczestników</span>
           </div>
-          <button className="bg-white text-purple-600 px-4 py-2 rounded-xl font-semibold text-sm hover:bg-blue-50 transition">
+          <button className="px-4 py-2 text-sm font-semibold text-purple-600 transition bg-white rounded-xl hover:bg-blue-50">
             Weź udział
           </button>
         </div>
@@ -139,9 +139,9 @@ export const Challenges: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-white rounded-2xl p-6 shadow-lg"
+        className="p-6 bg-white shadow-lg rounded-2xl"
       >
-        <h3 className="text-lg font-bold text-gray-800 mb-4">
+        <h3 className="mb-4 text-lg font-bold text-gray-800">
           Nadchodzące wyzwania
         </h3>
         <div className="space-y-4">
@@ -151,14 +151,14 @@ export const Challenges: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + index * 0.05 }}
-              className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-green-50 transition-colors cursor-pointer"
+              className="flex items-center p-4 transition-colors cursor-pointer bg-gray-50 rounded-xl hover:bg-green-50"
             >
-              <div className="text-2xl mr-4">{challenge.icon}</div>
+              <div className="mr-4 text-2xl">{challenge.icon}</div>
               <div className="flex-1">
                 <h4 className="font-semibold text-gray-800">
                   {challenge.title}
                 </h4>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="mb-2 text-sm text-gray-600">
                   {challenge.description}
                 </p>
                 <div className="flex items-center text-xs text-gray-500">
@@ -170,7 +170,7 @@ export const Challenges: React.FC = () => {
                 </div>
               </div>
               <div className="text-center">
-                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-lg">
+                <div className="px-2 py-1 text-green-800 bg-green-100 rounded-lg">
                   <Gift className="w-4 h-4 mx-auto mb-1" />
                   <p className="text-xs font-bold">+{challenge.bonusPoints}</p>
                 </div>
@@ -185,9 +185,9 @@ export const Challenges: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="bg-white rounded-2xl p-6 shadow-lg"
+        className="p-6 bg-white shadow-lg rounded-2xl"
       >
-        <h3 className="text-lg font-bold text-gray-800 mb-4">
+        <h3 className="mb-4 text-lg font-bold text-gray-800">
           Ukończone wyzwania
         </h3>
         <div className="space-y-4">
@@ -197,9 +197,9 @@ export const Challenges: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 + index * 0.05 }}
-              className="flex items-center p-4 bg-green-50 rounded-xl border border-green-200"
+              className="flex items-center p-4 border border-green-200 bg-green-50 rounded-xl"
             >
-              <div className="text-2xl mr-4">{challenge.icon}</div>
+              <div className="mr-4 text-2xl">{challenge.icon}</div>
               <div className="flex-1">
                 <h4 className="font-semibold text-gray-800">
                   {challenge.title}
@@ -207,7 +207,7 @@ export const Challenges: React.FC = () => {
                 <p className="text-sm text-gray-600">{challenge.description}</p>
               </div>
               <div className="text-center">
-                <div className="bg-green-500 text-white px-3 py-2 rounded-lg">
+                <div className="px-3 py-2 text-white bg-green-500 rounded-lg">
                   <p className="text-xs">Zdobyto</p>
                   <p className="text-sm font-bold">+{challenge.earnedPoints}</p>
                 </div>
@@ -222,9 +222,9 @@ export const Challenges: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="bg-gradient-to-r from-emerald-400 to-green-500 rounded-2xl p-6 text-white"
+        className="p-6 text-white bg-gradient-to-r from-emerald-400 to-green-500 rounded-2xl"
       >
-        <h3 className="text-lg font-bold mb-2">💡 Wskazówka</h3>
+        <h3 className="mb-2 text-lg font-bold">💡 Wskazówka</h3>
         <p className="text-green-100">
           Uczestnicząc w wyzwaniach możesz zdobyć znacznie więcej punktów!
           Pamiętaj, że każde wyzwanie ma określony czas trwania i bonusowe
