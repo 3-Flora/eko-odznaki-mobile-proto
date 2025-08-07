@@ -37,6 +37,7 @@ interface AuthContextType {
     userData: Partial<User>
   ) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
+  loginAsGuest: () => Promise<void>;
   logout: () => Promise<void>;
   updateUserPoints: (points: number) => Promise<void>;
   addBadgeToUser: (badge: Badge) => Promise<void>;
@@ -86,6 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         role: additionalData?.role || "student",
         points: 0,
         badges: [],
+        isGuest: false,
         ...(firebaseUser.photoURL && { photoURL: firebaseUser.photoURL }),
       };
 
@@ -106,10 +108,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       points: newPoints,
     });
 
-    // Update local state
     setCurrentUser((prev) => (prev ? { ...prev, points: newPoints } : null));
 
-    // Check and award new badges
     await checkAndAwardBadges(newPoints);
   };
 
@@ -119,7 +119,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const earnedBadgeIds = currentUser.badges.map((badge) => badge.id);
     const newBadges: Badge[] = [];
 
-    // Check point-based badges
     availableBadges.forEach((badge) => {
       if (
         badge.pointsRequired > 0 &&
@@ -130,7 +129,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     });
 
-    // Award new badges
     for (const badge of newBadges) {
       await addBadgeToUser(badge);
     }
@@ -149,7 +147,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       badges: newBadges,
     });
 
-    // Update local state
     setCurrentUser((prev) => (prev ? { ...prev, badges: newBadges } : null));
   };
 
@@ -180,7 +177,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       title: activityData.title,
       description: activityData.description,
       photoURL: activityData.photoURL,
-      points: getCategoryPoints(activityData.category), // We'll create this helper
+      points: getCategoryPoints(activityData.category),
       status: "pending",
       submittedAt: new Date(),
     };
@@ -215,7 +212,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return activities;
   };
 
-  // Helper function to get points for activity category
   const getCategoryPoints = (category: ActivityCategory): number => {
     const categoryMap: Record<ActivityCategory, number> = {
       transport: 10,
@@ -251,8 +247,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     await createUserDocument(user);
   };
 
+  const loginAsGuest = async () => {
+    const guestUser: User = {
+      id: "guest-" + Date.now(),
+      email: "guest@example.com",
+      displayName: "Gość",
+      school: "Unverified",
+      className: "Unverified",
+      role: "guest",
+      points: 0,
+      badges: [],
+      isGuest: true,
+    };
+    setCurrentUser(guestUser);
+  };
+
   const logout = async () => {
-    await signOut(auth);
+    if (currentUser?.isGuest) {
+      setCurrentUser(null);
+    } else {
+      await signOut(auth);
+    }
   };
 
   const deleteAccount = async () => {
@@ -290,7 +305,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           const userData = await createUserDocument(firebaseUser);
           setCurrentUser(userData);
 
-          // Set up real-time listener for user data
           const userRef = doc(db, "users", firebaseUser.uid);
           userUnsubscribe = onSnapshot(
             userRef,
@@ -327,6 +341,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     login,
     register,
     loginWithGoogle,
+    loginAsGuest,
     logout,
     updateUserPoints,
     addBadgeToUser,
