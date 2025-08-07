@@ -84,19 +84,28 @@ export const Profile: React.FC = () => {
 
         <h1 className="mb-1 text-2xl font-bold">{currentUser?.displayName}</h1>
         <p className="mb-2 text-green-100">
-          {currentUser?.role === "teacher" ? "Nauczyciel" : "Uczeń"}
+          {currentUser?.isGuest 
+            ? "Użytkownik gość" 
+            : currentUser?.role === "teacher" 
+              ? "Nauczyciel" 
+              : "Uczeń"
+          }
         </p>
 
         <div className="flex items-center justify-center mt-4 space-x-4">
-          <div className="flex items-center">
-            <School className="w-4 h-4 mr-1" />
-            <span className="text-sm">{currentUser?.school}</span>
-          </div>
-          {currentUser?.className && (
-            <div className="flex items-center">
-              <Users className="w-4 h-4 mr-1" />
-              <span className="text-sm">Klasa {currentUser?.className}</span>
-            </div>
+          {!currentUser?.isGuest && (
+            <>
+              <div className="flex items-center">
+                <School className="w-4 h-4 mr-1" />
+                <span className="text-sm">{currentUser?.school}</span>
+              </div>
+              {currentUser?.className && (
+                <div className="flex items-center">
+                  <Users className="w-4 h-4 mr-1" />
+                  <span className="text-sm">Klasa {currentUser?.className}</span>
+                </div>
+              )}
+            </>
           )}
         </div>
       </motion.div>
@@ -127,7 +136,15 @@ export const Profile: React.FC = () => {
       >
         <h2 className="mb-4 text-xl font-bold text-gray-800">Twoje odznaki</h2>
 
-        {earnedBadges.length === 0 ? (
+        {currentUser?.isGuest ? (
+          <div className="py-8 text-center">
+            <div className="mb-4 text-4xl">👤</div>
+            <p className="text-gray-600">Tryb gościa</p>
+            <p className="mt-2 text-sm text-gray-400">
+              Zaloguj się, aby zdobywać punkty i odznaki
+            </p>
+          </div>
+        ) : earnedBadges.length === 0 ? (
           <div className="py-8 text-center">
             <div className="mb-4 text-4xl">🏆</div>
             <p className="text-gray-600">Zdobądź pierwszą odznakę!</p>
@@ -154,13 +171,14 @@ export const Profile: React.FC = () => {
         )}
       </motion.div>
 
-      {/* Available Badges */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-        className="p-6 bg-white shadow-lg rounded-2xl"
-      >
+      {/* Available Badges - Hidden for guests */}
+      {!currentUser?.isGuest && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="p-6 bg-white shadow-lg rounded-2xl"
+        >
         <h2 className="mb-4 text-xl font-bold text-gray-800">
           Odznaki do zdobycia
         </h2>
@@ -213,7 +231,8 @@ export const Profile: React.FC = () => {
               </motion.div>
             ))}
         </div>
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* Logtout Button */}
       <motion.div
@@ -229,20 +248,22 @@ export const Profile: React.FC = () => {
         </span>
       </motion.div>
 
-      {/* Delete Account Button */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9 }}
-        className="flex items-center p-4 transition-colors shadow-md cursor-pointer bg-red-50 rounded-xl hover:bg-red-100"
-        onClick={() => {
-          setShowDeleteModal(true);
-        }}
-      >
-        <span className="flex items-center gap-2 text-sm font-semibold text-red-600">
-          <Trash2 size={18} /> Usuń konto
-        </span>
-      </motion.div>
+      {/* Delete Account Button - Hidden for guests */}
+      {!currentUser?.isGuest && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="flex items-center p-4 transition-colors shadow-md cursor-pointer bg-red-50 rounded-xl hover:bg-red-100"
+          onClick={() => {
+            setShowDeleteModal(true);
+          }}
+        >
+          <span className="flex items-center gap-2 text-sm font-semibold text-red-600">
+            <Trash2 size={18} /> Usuń konto
+          </span>
+        </motion.div>
+      )}
 
       <ConfirmModal
         open={showDeleteModal}

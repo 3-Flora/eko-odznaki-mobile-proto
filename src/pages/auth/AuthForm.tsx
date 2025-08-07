@@ -17,7 +17,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { login, register, loginWithGoogle } = useAuth();
+  const { login, register, loginWithGoogle, loginAsGuest } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +55,21 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
     setLoading(false);
   };
 
+  const handleGuestLogin = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      await loginAsGuest();
+    } catch (err: any) {
+      setError(err.message);
+    }
+
+    setLoading(false);
+  };
+
+
+
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50">
       <div className="w-full max-w-md p-8 bg-white shadow-2xl rounded-3xl">
@@ -64,6 +79,24 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
           <p className="text-gray-600">
             {isLogin ? "Zaloguj się do swojego konta" : "Stwórz nowe konto"}
           </p>
+        </div>
+
+        {/* Guest Login Button */}
+        <button
+          onClick={handleGuestLogin}
+          disabled={loading}
+          className="w-full py-3 mb-6 font-semibold text-gray-700 transition duration-200 bg-gray-100 border border-gray-300 rounded-xl hover:bg-gray-200 disabled:opacity-50"
+        >
+          {loading ? "Ładowanie..." : "Przejdź jako gość"}
+        </button>
+
+        <div className="relative mb-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 text-gray-500 bg-white">lub zaloguj się</span>
+          </div>
         </div>
 
         {error && (
@@ -205,6 +238,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onToggle }) => {
               : "Masz już konto? Zaloguj się"}
           </button>
         </div>
+
+
       </div>
     </div>
   );

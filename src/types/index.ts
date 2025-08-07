@@ -4,10 +4,11 @@ export interface User {
   displayName: string;
   school: string;
   className: string;
-  role: "student" | "teacher";
+  role: "student" | "teacher" | "guest";
   points: number;
   badges: Badge[];
   photoURL?: string;
+  isGuest?: boolean;
 }
 
 export interface Badge {

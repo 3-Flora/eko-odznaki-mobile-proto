@@ -6,7 +6,7 @@ import { ActivityCategory } from "../../types";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const SubmitActivity: React.FC = () => {
-  const { submitActivity } = useAuth();
+  const { submitActivity, currentUser } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState<
     ActivityCategory | ""
   >("");
@@ -87,6 +87,28 @@ export const SubmitActivity: React.FC = () => {
           <div className="inline-block px-4 py-2 text-green-800 bg-green-100 rounded-full">
             <CheckCircle className="inline w-4 h-4 mr-1" />
             Oczekuje na zatwierdzenie
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Show guest message if user is a guest
+  if (currentUser?.isGuest) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center max-w-md"
+        >
+          <div className="mb-4 text-6xl">👤</div>
+          <h2 className="mb-2 text-2xl font-bold text-gray-800">Tryb gościa</h2>
+          <p className="mb-4 text-gray-600">
+            Aby zgłaszać działania i zdobywać punkty, musisz się zalogować do swojego konta.
+          </p>
+          <div className="inline-block px-4 py-2 text-blue-800 bg-blue-100 rounded-full">
+            Zaloguj się, aby kontynuować
           </div>
         </motion.div>
       </div>
